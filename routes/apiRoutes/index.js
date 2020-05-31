@@ -1,15 +1,26 @@
 const router = require('express').Router();
-const notes = require('../../db/db.json');
 const fs = require('fs');
 const path = require('path');
 
 router.get("/notes", (req, res) => {
-    let results = notes;
+    // read noteData from json file
+    noteData = fs.readFileSync(
+        path.join(__dirname, '../../db/db.json'));
+
+    // parse data to get array of objects
+    noteData = JSON.parse(noteData);
+
+    let results = noteData;
     return res.json(results);
 });
 
 router.get("/notes/:id", (req, res) => {
     const result = req.params.id;
+    let notes = fs.readFileSync(
+        path.join(__dirname, '../../db/db.json'));
+
+    // parse data to get array of objects
+    notes = JSON.parse(notes);
 
     for (let i = 0; i < notes.length; i++) {
         if (result === notes[i].id) {
@@ -23,6 +34,13 @@ router.get("/notes/:id", (req, res) => {
 router.post("/notes", (req,res) => {
     //Create a note using request body
     const newNote = req.body;
+
+    //create array from db file
+    let notes = fs.readFileSync(
+        path.join(__dirname, '../../db/db.json'));
+
+    // parse data to get array of objects
+    notes = JSON.parse(notes);
 
     //Add an id based on number of saved notes
     req.body.id = notes.length.toString();
