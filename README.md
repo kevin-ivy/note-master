@@ -13,7 +13,7 @@
     
   ## Installation
   
-  * Navigate to the following heroku link:
+  * Navigate to the following heroku link: https://mysterious-cliffs-65818.herokuapp.com/
 
   ## Usage
   
